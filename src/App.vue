@@ -46,6 +46,7 @@ export default {
     onCardClicked: function (card) {
       let { first, second } = this.picks
 
+      if (first && second) return
       if (this.revealed.includes(card)) return
       if (first === card || second === card) return
 
@@ -57,13 +58,17 @@ export default {
     checkMatch: function (first, second) {
       if (first.icon === second.icon) {
         this.revealed.push(first, second)
-        this.picks.first = null
-        this.picks.second = null
+        this.picks = {
+          first: null,
+          second: null
+        }
         this.checkWin()
       } else {
         setTimeout(() => {
-          this.picks.first = null
-          this.picks.second = null
+          this.picks = {
+            first: null,
+            second: null
+          }
         }, 750)
       }
     },
